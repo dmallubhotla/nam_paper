@@ -1,0 +1,36 @@
+\documentclass{article}
+
+%other packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+% \usepackage{physics}
+
+\usepackage[
+	style=phys, articletitle=false, biblabel=brackets, chaptertitle=false, pageranges=false, url=true
+]{biblatex}
+
+\usepackage{graphicx}
+
+% \usepackage{siunitx}
+
+%\pagestyle{headings}
+
+\title{Paper}
+\author{Deepak Mallubhotla}
+% want empty date
+\date{\today}
+
+\addbibresource{./bibliography.bib}
+
+\graphicspath{{./figures/}}
+
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction \label{sec:intro}}
+
+\printbibliography
+
+\end{document}

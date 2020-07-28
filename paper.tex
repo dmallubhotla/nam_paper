@@ -3,33 +3,71 @@
 %other packages
 \usepackage{amsmath}
 \usepackage{amssymb}
-% \usepackage{physics}
+\usepackage{physics}
 
 \usepackage[
 	style=phys, articletitle=false, biblabel=brackets, chaptertitle=false, pageranges=false, url=true
 ]{biblatex}
 
 \usepackage{graphicx}
+\usepackage{todonotes}
+\usepackage{siunitx}
 
-% \usepackage{siunitx}
-
-%\pagestyle{headings}
-
-\title{Paper}
-\author{Deepak Mallubhotla}
-% want empty date
-\date{\today}
+\title{Title}
 
 \addbibresource{./bibliography.bib}
 
 \graphicspath{{./figures/}}
-
 
 \begin{document}
 
 \maketitle
 
 \section{Introduction \label{sec:intro}}
+\begin{itemize}
+	\item Motivate with~\cite{Tenberg2019} and~\cite{Kolkowitz2015}
+	\item Existing work with Lindhard expression~\cite{QubitRelax}
+	\item Variety of existing superconducting dielectric functions like in~\cite{AGD, llv9, Zimmermann1991, Mattis, Tinkham}.
+	Advantage of Nam expression\cite{Nam1967} is that it's got the worked out dependence on momentum and impurities, both of which we need.
+\end{itemize}
+\section{Methods \label{sec:methods}}
+
+\begin{itemize}
+	\item Include Nam expressions from~\cite{Nam1967}, including the choice for particle density function etc.
+	\item Are there any interesting plots for Nam dielectric function?
+	We're not adding anything to them, so only interesting thing is showing effect of frequency / temperature to show that Nam did indeed describe something that looks like a superconductor.
+	\item Potentially include Lindhard expressions for completeness? or does it suffice to mention them.
+	\item Include noise expressions from~\cite{QubitRelax} and~\cite{Henkel1999}.
+	\item Include the Ford and Weber expressions in~\cite{Ford1984}, for reflection coefficients/ surface impedances.
+	\item Include 3D plot of noise vs $\omega$ and $T$ with presence of the phase transition to superconducting state?
+	\item Include sample plot of noise vs distance here to show overall shape of noise (e.g. show levelling off for $z \rightarrow 0$ and cubic dependence further away, as expected?).
+\end{itemize}
+
+\section{Numerical Techniques \label{sec:technical}}
+
+\begin{itemize}
+	\item Limitations on superconducting dielectric function.
+	In every expression that's worked out for arbitrary momentum, the large-momentum dependence goes as $\frac{1}{k}$, which is clearly unphysical.
+	Issue exists in~\cite{Nam1967, AGD, Tinkham}, etc.
+	\item Include description of cutoff process.
+	\item Include description of the interpolation process.
+	\item Is the numerics of picking the relevant unit scales / discussion of convergence interesting?
+	It might be too obvious that the convergence is expected because these are real quantities.
+	\item Any other potentially interesting approximations?
+	Some integrals have regions entirely discarded because they are too small to matter, which is why the expressions in the Mathematica package are much simpler than what's in Nam.
+\end{itemize}
+
+\section{Experiments \label{sec:experiments}}
+\begin{itemize}
+	\item Show that expression is of right order of magnitude to describe~\cite{Tenberg2019}.
+	\item Look at temperature at which~\cite{Tenberg2019} should show SC effects (not far off!)
+	\item Compare to~\cite{Kolkowitz2015}?
+	Much further from relevant temperature range.
+	\item Metal choices?
+	Obviously large $T_c$ is most important to get noise reduction benefits.
+	What else is most relevant for usable metals?
+\end{itemize}
+\section{Conclusions \label{sec:conclusions}}
 
 \printbibliography
 

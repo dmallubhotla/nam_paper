@@ -19,6 +19,8 @@
 
 \graphicspath{{./figures/}}
 
+\newcommand{\vf}{v_{\mathrm{F}}}
+
 \begin{document}
 
 \maketitle
@@ -32,8 +34,24 @@
 \end{itemize}
 \section{Methods \label{sec:methods}}
 
+	An expression in Nam~\cite{Nam1967} describes the electrodynamics for a broad class of superconducting behaviour.
+	Assuming no magnetic impurities and weak coupling, we have
+	\begin{equation}
+		\epsilon(q, \omega) = 1 + \frac{3 \pi}{\omega^2} \frac{n e^2}{m} \left[\int_{\Delta - \omega}^{\Delta}\dd{\omega'} \tanh(\frac{\omega + \omega'}{2 T}) I_1 + \int_{\Delta}^{\infty} \dd{\omega'} \left( \tanh(\frac{\omega + \omega'}{2 T}) I_1  - \tanh(\frac{\omega'}{2 T})I_2 \right) \right],
+	\end{equation}
+	with
+	\begin{align}
+		I_1 &= F(q, \Re[\sqrt{(\omega + \omega')^2 - \Delta^2} - \sqrt{\omega'^2 - \Delta^2}]) (g + 1) \nonumber\\
+		&\quad + F(q, \Re[-\sqrt{(\omega + \omega')^2 - \Delta^2} - \sqrt{\omega'^2 - \Delta^2}]) (g - 1) \\
+		I_2 &= F(q, \Re[\sqrt{(\omega + \omega')^2 - \Delta^2} - \sqrt{\omega'^2 - \Delta^2}]) (g + 1) \nonumber\\
+		&\quad + F(q, \Re[\sqrt{(\omega +  \omega')^2 - \Delta^2} + \sqrt{\omega'^2 - \Delta^2}]) (g - 1) \\
+		F(q, E) &= \frac{1}{q \vf} \left[2 S(E) + (1 - S(E)^2)\ln(\frac{S(E) + 1}{S(E) - 1})\right]  \\
+		S(q, E) &= \frac{1}{q \vf} \left( E - i \left(\Im[\sqrt{(\omega + \omega')^2 - \Delta^2} + \sqrt{\omega'^2 - \Delta^2}] + \frac{2}{\tau} \right) \right) \\
+		g  &= \frac{\omega' \left(\omega + \omega'\right) + \Delta^2}{\sqrt{\omega'^2 - \Delta^2}\sqrt{(\omega + \omega')^2 - \Delta^2}}.
+	\end{align}
+
 \begin{itemize}
-	\item Include Nam expressions from~\cite{Nam1967}, including the choice for particle density function etc.
+
 	\item Are there any interesting plots for Nam dielectric function?
 	We're not adding anything to them, so only interesting thing is showing effect of frequency / temperature to show that Nam did indeed describe something that looks like a superconductor.
 	\item Potentially include Lindhard expressions for completeness? or does it suffice to mention them.

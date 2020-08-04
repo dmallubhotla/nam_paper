@@ -34,10 +34,26 @@
 \end{itemize}
 \section{Methods \label{sec:methods}}
 
+	The relaxation rate for an electric qubit with dipole moment $\vec{d}$ a distance $r$ from a half space, described in~\cite{Henkel1999} and~\cite{QubitRelax}, can be written
+	\begin{equation}
+		\frac{1}{T_1} = \frac{d^2}{\hbar \epsilon_0} \frac{\omega^3}{c^3} \chi_{i}^{E}(r, \omega) \coth\frac{\omega}{2 T}.
+	\end{equation}
+	For a qubit pointing perpendicular to the surface of the half space,
+	\begin{align}
+		\chi_\perp^E(z, \omega) &= \Re \int_0^{+\infty} \dd{u} \frac{u^3}{v} e^{2 i z v} r_p(u).
+	\end{align}
+	Here, $z$ is measured in units of the vacuum wavelength $\frac{c}{\omega}$, $v = \sqrt{1 - u^2}$ and we take the root $v = i \sqrt{u^2 - 1}$ for $u \geq 1$.
+
+	The reflection coefficients are described by Ford and Weber~\cite{Ford1984}:
+	\begin{align}
+		r_p(u) &= \frac{\epsilon(u) v - \sqrt{\epsilon(u) - u^2}}{\epsilon(u) v + \sqrt{\epsilon(u) - u^2}} \\
+		r_s(u) &= \frac{v - \sqrt{\epsilon(u) - u^2}}{v + \sqrt{\epsilon(u) - u^2}}.
+	\end{align}
+
 	Nam~\cite{Nam1967} describes the electrodynamics for a broad class of superconducting behaviour.
 	Assuming no magnetic impurities and weak coupling, we have
 	\begin{equation}
-		\epsilon(q, \omega) = 1 + \frac{3 \pi}{\omega^2} \frac{n e^2}{m} \left[\int_{\Delta - \omega}^{\Delta}\dd{\omega'} \tanh(\frac{\omega + \omega'}{2 T}) I_1 + \int_{\Delta}^{\infty} \dd{\omega'} \left( \tanh(\frac{\omega + \omega'}{2 T}) I_1  - \tanh(\frac{\omega'}{2 T})I_2 \right) \right],
+		\epsilon(q = u \frac{\omega}{c}, \omega) = 1 + \frac{3 \pi}{\omega^2} \frac{n e^2}{m} \left[\int_{\Delta - \omega}^{\Delta}\dd{\omega'} \tanh(\frac{\omega + \omega'}{2 T}) I_1 + \int_{\Delta}^{\infty} \dd{\omega'} \left( \tanh(\frac{\omega + \omega'}{2 T}) I_1  - \tanh(\frac{\omega'}{2 T})I_2 \right) \right],
 	\end{equation}
 	with
 	\begin{align}

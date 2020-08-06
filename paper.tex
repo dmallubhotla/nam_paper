@@ -34,7 +34,9 @@
 \end{itemize}
 \section{Methods \label{sec:methods}}
 
-	The relaxation rate for an electric qubit with dipole moment $\vec{d}$ a distance $r$ from a half space, described in~\cite{Henkel1999} and~\cite{QubitRelax}, can be written
+
+
+	The relaxation rate for an electric qubit with dipole moment $\vec{d}$ a distance $r$ from a half space, described in~\cite{Henkel1999} and~\cite{QubitRelax}, can be written\todo{Add description here of how and why (e.g. Fermi's golden rule + FD theorem)}
 	\begin{equation}
 		\frac{1}{T_1} = \frac{d^2}{\hbar \epsilon_0} \frac{\omega^3}{c^3} \chi_{i}^{E}(r, \omega) \coth\frac{\omega}{2 T}.
 	\end{equation}
@@ -44,7 +46,7 @@
 	\end{align}
 	Here, $z$ is measured in units of the vacuum wavelength $\frac{c}{\omega}$, $v = \sqrt{1 - u^2}$ and we take the root $v = i \sqrt{u^2 - 1}$ for $u \geq 1$.
 
-	The reflection coefficients are described by Ford and Weber~\cite{Ford1984}:
+	The reflection coefficients are described by Ford and Weber~\cite{Ford1984}\todo{Add description of conditions and derivation methods, surface impedance are in quasistatic limit}:
 	\begin{align}
 		r_p(u) &= \frac{\pi v - \zeta_p(u)}{\pi v + \zeta_p(u)} \\
 		r_s(u) &= \frac{\zeta_s(u) - \frac{\pi}{v}}{\zeta_s(u) + \frac{\pi}{v}} \\

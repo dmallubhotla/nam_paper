@@ -40,20 +40,24 @@
 	\end{equation}
 	For a qubit pointing perpendicular to the surface of the half space,
 	\begin{align}
-		\chi_\perp^E(z, \omega) &= \Re \int_0^{+\infty} \dd{u} \frac{u^3}{v} e^{2 i z v} r_p(u).
+		\chi_\perp^E(z, \omega) &= \Re \int_0^{+\infty} \dd{u} \frac{u^3}{v} e^{2 i z v} r_p(u). \label{eq:chi}
 	\end{align}
 	Here, $z$ is measured in units of the vacuum wavelength $\frac{c}{\omega}$, $v = \sqrt{1 - u^2}$ and we take the root $v = i \sqrt{u^2 - 1}$ for $u \geq 1$.
 
 	The reflection coefficients are described by Ford and Weber~\cite{Ford1984}:
 	\begin{align}
-		r_p(u) &= \frac{\epsilon(u) v - \sqrt{\epsilon(u) - u^2}}{\epsilon(u) v + \sqrt{\epsilon(u) - u^2}} \\
-		r_s(u) &= \frac{v - \sqrt{\epsilon(u) - u^2}}{v + \sqrt{\epsilon(u) - u^2}}.
+		r_p(u) &= \frac{\pi v - \zeta_p(u)}{\pi v + \zeta_p(u)} \\
+		r_s(u) &= \frac{\zeta_s(u) - \frac{\pi}{v}}{\zeta_s(u) + \frac{\pi}{v}} \\
+		\zeta_p(u) &= 2i \int_0^\infty \dd{y} \frac{1}{\kappa^2} \left( \frac{y^2}{\epsilon(\frac{\omega}{c}\kappa, \omega) - \kappa^2} + \frac{u^2}{\epsilon_(\frac{\omega}{c}\kappa, \omega)} \right) \label{eq:zp} \\
+		\zeta_s(u) &= 2i \int_0^\infty \dd{y} \frac{1}{\epsilon(\frac{\omega}{c}\kappa, \omega) - \kappa^2} \label{eq:zs} \\
+		\kappa^2 &= u^2 + y^2
 	\end{align}
+	As noted in~\cite{QubitRelax}, these expressions remain valid even for nonlocal descriptions of the dielectric constant.
 
-	Nam~\cite{Nam1967} describes the electrodynamics for a broad class of superconducting behaviour.
-	Assuming no magnetic impurities and weak coupling, we have
+	Nam~\cite{Nam1967} describes the electrodynamics for superconductors applicable for clean and dirty materials.
+	Assuming no magnetic impurities and weak coupling, his expressions reduce to
 	\begin{equation}
-		\epsilon(q = u \frac{\omega}{c}, \omega) = 1 + \frac{3 \pi}{\omega^2} \frac{n e^2}{m} \left[\int_{\Delta - \omega}^{\Delta}\dd{\omega'} \tanh(\frac{\omega + \omega'}{2 T}) I_1 + \int_{\Delta}^{\infty} \dd{\omega'} \left( \tanh(\frac{\omega + \omega'}{2 T}) I_1  - \tanh(\frac{\omega'}{2 T})I_2 \right) \right],
+		\epsilon(q, \omega) = 1 + \frac{3 \pi}{\omega^2} \frac{n e^2}{m} \left[\int_{\Delta - \omega}^{\Delta}\dd{\omega'} \tanh(\frac{\omega + \omega'}{2 T}) I_1 + \int_{\Delta}^{\infty} \dd{\omega'} \left( \tanh(\frac{\omega + \omega'}{2 T}) I_1  - \tanh(\frac{\omega'}{2 T})I_2 \right) \right],
 	\end{equation}
 	with
 	\begin{align}
@@ -66,17 +70,20 @@
 		g &= \frac{\omega' \left(\omega + \omega'\right) + \Delta^2}{\sqrt{\omega'^2 - \Delta^2}\sqrt{(\omega + \omega')^2 - \Delta^2}}.
 	\end{align}
 
-\begin{itemize}
 
-	\item Are there any interesting plots for Nam dielectric function?
-	We're not adding anything to them, so only interesting thing is showing effect of frequency / temperature to show that Nam did indeed describe something that looks like a superconductor.
-	\item Potentially include Lindhard expressions for completeness? or does it suffice to mention them.
+\section{General Results}
+
+
+
+\begin{itemize}
 	\item Include 3D plot of noise vs $\omega$ and $T$ with presence of the phase transition to superconducting state?
 	\item Include sample plot of noise vs distance here to show overall shape of noise (e.g. show levelling off for $z \rightarrow 0$ and cubic dependence further away, as expected?).
 \end{itemize}
 
 \section{Numerical Techniques \label{sec:technical}}
 
+	Nam's expressions are no longer valid for $k \geq k_\mathrm{F}$, and as $k \rightarrow \infty$ exhibit an unphysical $\flatfrac{1}{k}$ dependence.
+	In order to use~\eqref{eq:zp} and~\eqref{eq:zs}
 \begin{itemize}
 	\item Limitations on superconducting dielectric function.
 	In every expression that's worked out for arbitrary momentum, the large-momentum dependence goes as $\frac{1}{k}$, which is clearly unphysical.

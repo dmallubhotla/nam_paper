@@ -59,7 +59,7 @@
 	Nam~\cite{Nam1967} describes the electrodynamics for superconductors applicable for clean and dirty materials.\todo{Describe his derivations here, based on Green's function methods \& can generalise to strong-coupling and magnetic impurities}
 	Assuming no magnetic impurities and weak coupling, his expressions reduce to
 	\begin{equation}
-		\epsilon(q, \omega) = 1 + \frac{3 \pi}{\omega^2} \frac{n e^2}{m} \left[\int_{\Delta - \omega}^{\Delta}\dd{\omega'} \tanh(\frac{\omega + \omega'}{2 T}) I_1 + \int_{\Delta}^{\infty} \dd{\omega'} \left( \tanh(\frac{\omega + \omega'}{2 T}) I_1  - \tanh(\frac{\omega'}{2 T})I_2 \right) \right],
+		\epsilon(q, \omega) = 1 + \frac{3 \pi}{\omega^2} \frac{n e^2}{m} \left[\int_{\Delta - \omega}^{\Delta}\dd{\omega'} \tanh(\frac{\omega + \omega'}{2 T}) I_1 + \int_{\Delta}^{\infty} \dd{\omega'} \left( \tanh(\frac{\omega + \omega'}{2 T}) I_1  - \tanh(\frac{\omega'}{2 T})I_2 \right) \right], \label{eq:eps}
 	\end{equation}
 	with
 	\begin{align}
@@ -80,14 +80,16 @@
 
 \section{Numerical Techniques \label{sec:technical}}
 
-	Nam's expressions are no longer valid for $k \geq k_\mathrm{F}$, and as $k \rightarrow \infty$ exhibit an unphysical $\flatfrac{1}{k}$ dependence.
-	In order to use~\eqref{eq:zp} and~\eqref{eq:zs}
+	Nam's expressions are no longer valid for $k \geq k_\mathrm{F}$, and as $k \rightarrow \infty$ exhibit an unphysical $\flatfrac{1}{k}$ dependence, a feature shared by similar expressions in \cite{AGD}.
+	In order to use~\eqref{eq:zp} and~\eqref{eq:zs}, this must be corrected to prevent divergences.
+	For sufficiently large momenta, the response function should approach the normal state function\todo{add good ref of this}.
+	Moreover, $\Im \epsilon$ should go to $0$ when $k \gtrapprox 2 \vf$, as otherwise there will be no available states within the Fermi surface for energy transfer (for more on this point, see the discussion in~\cite{FetterWalecka}).
+
+	In order to account for the first point, for the normal state we can use the Lindahrd dielectric function, which has the correct nonlocal behaviour to describe the low $z$ noise\cite{QubitRelax}.
+	The 
+
 \begin{itemize}
-	\item Limitations on superconducting dielectric function.
-	In every expression that's worked out for arbitrary momentum, the large-momentum dependence goes as $\frac{1}{k}$, which is clearly unphysical.
-	Issue exists in~\cite{Nam1967, AGD, Tinkham}, etc.
 	\item Include description of cutoff process.
-	\item Include description of the interpolation process.
 	\item Is the numerics of picking the relevant unit scales / discussion of convergence interesting?
 	It might be too obvious that the convergence is expected because these are real quantities.
 	\item Any other potentially interesting approximations?

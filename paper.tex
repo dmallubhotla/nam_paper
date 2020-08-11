@@ -80,21 +80,24 @@
 
 \section{Numerical Techniques \label{sec:technical}}
 
-	Nam's expressions are no longer valid for $k \geq k_\mathrm{F}$, and as $k \rightarrow \infty$ exhibit an unphysical $\flatfrac{1}{k}$ dependence, a feature shared by similar expressions in \cite{AGD}.
+	Nam's expressions are no longer valid for $q \geq q_\mathrm{F}$, and as $q \rightarrow \infty$ exhibit an unphysical $\flatfrac{1}{q}$ dependence, a feature shared by similar expressions in \cite{AGD}.
 	In order to use~\eqref{eq:zp} and~\eqref{eq:zs}, this must be corrected to prevent divergences.
 	For sufficiently large momenta, the response function should approach the normal state function\todo{add good ref of this}.
-	Moreover, $\Im \epsilon$ should go to $0$ when $k \gtrapprox 2 \vf$, as otherwise there will be no available states within the Fermi surface for energy transfer (for more on this point, see the discussion in~\cite{FetterWalecka}).
+	Moreover, $\Im \epsilon$ should go to $0$ when $q \gtrapprox 2 k_{\mathrm{F}}$, as otherwise there will be no available states within the Fermi surface for energy transfer (for more on this point, see the discussion in~\cite{FetterWalecka}).
 
-	In order to account for the first point, for the normal state we can use the Lindahrd dielectric function, which has the correct nonlocal behaviour to describe the low $z$ noise\cite{QubitRelax}.
-	The 
+	In order to account for the first point, for the normal state we can use the Lindhard dielectric function, which has the correct nonlocal behaviour to describe the low $z$ noise\cite{QubitRelax}.
+	As described from~\cite{SolyomV3}, this is
+	\begin{equation}
+		\epsilon_{\mathrm{Lindhard}}(\vec{q}, \omega) = 1 + \frac{q_{TF}^2}{q^2}\frac{\displaystyle 1 + \frac{\omega + \flatfrac{i}{\tau}}{2 \vf q} \ln(\frac{\omega - \vf q + \flatfrac{i}{\tau}}{\omega + \vf q + \flatfrac{i}{\tau}})}{\displaystyle 1 + \frac{\flatfrac{i}{\tau}}{2 \vf q} \ln(\frac{\omega - \vf q + \flatfrac{i}{\tau}}{\omega + \vf q + \flatfrac{i}{\tau}})}. \label{eq:lindhardsolyom}
+	\end{equation}
 
-\begin{itemize}
-	\item Include description of cutoff process.
-	\item Is the numerics of picking the relevant unit scales / discussion of convergence interesting?
-	It might be too obvious that the convergence is expected because these are real quantities.
-	\item Any other potentially interesting approximations?
-	Some integrals have regions entirely discarded because they are too small to matter, which is why the expressions in the Mathematica package are much simpler than what's in Nam.
-\end{itemize}
+	The effect of the inaccurate large momentum values in $\epsilon$ is an overestimation of the dissipative part $\Im r_p$ of the reflection coefficient.
+	To correct for this, we can use~\eqref{eq:lindhardsolyom} and~\eqref{eq:eps} to find $r_{p\mathrm{, Lindhard}}$ and $r_{p\mathrm{, Nam}}$, then choose whichever value has a smaller imaginary part.
+	Effectively, this defines an $r_{p\mathrm{, effective}}$.
+	For $q$ below some cutoff $q_{uc}$ on the order of $q_{\mathrm{F}}$, this picks the Nam reflection coefficient and reflects the diminished noise in the superconducting state.
+
+	The integral in~\eqref{eq:chi} picks out values around $u = \frac{c}{\omega} q \sim \frac{1}{z}$.
+	As long as $\frac{1}{z} \ll \frac{\omega}{c} q_{uc}$, the value for the noise will reflect the effects of the superconducting expressions, without picking up the inaccuracies of the transition region.
 
 \section{Experiments \label{sec:experiments}}
 \begin{itemize}

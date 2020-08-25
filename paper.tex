@@ -34,49 +34,62 @@
 \end{itemize}
 \section{Methods \label{sec:methods}}
 
+The electromagnetic field fluctuations that contribute to qubit relaxation haven described in~\cite{QubitRelax} and~\cite{Henkel1999}.
+Both use Fermi's golden rule and the fluctuation-dissipation theorem to relate the relaxation rate to the spectral density of the field fluctations:
+\begin{equation}
+	\frac{1}{T_1} = \frac{d_{(E,B)}^2}{\epsilon_0} \frac{\omega^3}{c^3} \chi_{i}^{(E,B)}(r, \omega) \coth\frac{\omega}{2 T}.
+\end{equation}
+Here, $\vec{d}_{(E,B)}$ is the dipole moment of a point qubit at position $\vec{r}$, with $i$ the direction of the qubit's dipole moment, with $(E,B)$ represents an electric or magnetic qubit (and correspondingly, an electric or magnetic spectral field density).
+The frequency $\omega$ corresponds to the separation between energy levels of the qubit, and here and elsewhere we take $\hbar = k_{\mathrm{B}} = 1$.
 
+For a half space, these spectral densities can be written in terms of the surface's reflection coefficients, as derived by\cite{Henkel1999}.
+Considering for now a qubit pointing in the direction perpendicular to the half-space, we can write
+\begin{align}
+	\chi_\perp^E(z, \omega) &= \Re \int_0^{+\infty} \dd{u} \frac{u^3}{v} e^{2 i z v} r_p(u), \label{eq:chi}
+\end{align}
+with $z$ the distance to the qubit from the half-space measured in terms of the vacuum wavelength $\lambda = \flatfrac{c}{\omega}$.
+The integration variable $u$ effectively represents a momentum in units of $\flatfrac{1}{\lambda}$, with $v = \sqrt{1 - u^2}$.
+If $v \geq 1$, we take the positive square root $v = i \sqrt{u^2 - 1}$.
+The magnetic spectral density is the same, except with an additional factor of $\flatfrac{1}{c^2}$ and with $r_s$ instead of $r_p$.
 
-	The relaxation rate for an electric qubit with dipole moment $\vec{d}$ a distance $r$ from a half space, described in~\cite{Henkel1999} and~\cite{QubitRelax}, can be written\todo{Add description here of how and why (e.g. Fermi's golden rule + FD theorem)}
-	\begin{equation}
-		\frac{1}{T_1} = \frac{d^2}{\hbar \epsilon_0} \frac{\omega^3}{c^3} \chi_{i}^{E}(r, \omega) \coth\frac{\omega}{2 T}.
-	\end{equation}
-	For a qubit pointing perpendicular to the surface of the half space,
-	\begin{align}
-		\chi_\perp^E(z, \omega) &= \Re \int_0^{+\infty} \dd{u} \frac{u^3}{v} e^{2 i z v} r_p(u). \label{eq:chi}
-	\end{align}
-	Here, $z$ is measured in units of the vacuum wavelength $\frac{c}{\omega}$, $v = \sqrt{1 - u^2}$ and we take the root $v = i \sqrt{u^2 - 1}$ for $u \geq 1$.
+For the description of the behaviour of~\eqref{eq:chi} to remain accurate for small $z$, we use the reflection coefficients in Ford and Weber~\cite{Ford1984}:
+\begin{align}
+	r_p(u) &= \frac{\pi v - \zeta_p(u)}{\pi v + \zeta_p(u)} \\
+	r_s(u) &= \frac{\zeta_s(u) - \frac{\pi}{v}}{\zeta_s(u) + \frac{\pi}{v}} \\
+	\zeta_p(u) &= 2i \int_0^\infty \dd{y} \frac{1}{\kappa^2} \left( \frac{y^2}{\epsilon(\frac{\omega}{c}\kappa, \omega) - \kappa^2} + \frac{u^2}{\epsilon_(\frac{\omega}{c}\kappa, \omega)} \right) \label{eq:zp} \\
+	\zeta_s(u) &= 2i \int_0^\infty \dd{y} \frac{1}{\epsilon(\frac{\omega}{c}\kappa, \omega) - \kappa^2} \label{eq:zs} \\
+	\kappa^2 &= u^2 + y^2
+\end{align}
+The treatment in~\cite{QubitRelax} compares the difference between these expressions and the simpler Fresnel reflection coefficients.
+In effect, using the Fresnel reflection coefficients for a metal for some constant conductivity corresponds to a local limit $u \rightarrow 0$.
 
-	The reflection coefficients are described by Ford and Weber~\cite{Ford1984}\todo{Add description of conditions and derivation methods, surface impedance are in quasistatic limit}:
-	\begin{align}
-		r_p(u) &= \frac{\pi v - \zeta_p(u)}{\pi v + \zeta_p(u)} \\
-		r_s(u) &= \frac{\zeta_s(u) - \frac{\pi}{v}}{\zeta_s(u) + \frac{\pi}{v}} \\
-		\zeta_p(u) &= 2i \int_0^\infty \dd{y} \frac{1}{\kappa^2} \left( \frac{y^2}{\epsilon(\frac{\omega}{c}\kappa, \omega) - \kappa^2} + \frac{u^2}{\epsilon_(\frac{\omega}{c}\kappa, \omega)} \right) \label{eq:zp} \\
-		\zeta_s(u) &= 2i \int_0^\infty \dd{y} \frac{1}{\epsilon(\frac{\omega}{c}\kappa, \omega) - \kappa^2} \label{eq:zs} \\
-		\kappa^2 &= u^2 + y^2
-	\end{align}
-	As noted in~\cite{QubitRelax}, these expressions remain valid even for nonlocal descriptions of the dielectric constant.
+The dielectric function $\epsilon(q, \omega)$, then, contains the information needed to describe the electromagnetic properties of the surface near the qubit.
+For the normal state, the dielectric function derived by Lindhard~\cite{Lindhard} used in~\cite{QubitRelax} describes the non-local electromagnetic response of a metal.
+Using the form described by Solyom\cite{SolyomV3},
+\begin{equation}
+	\epsilon_{\mathrm{Lindhard}}(\vec{q}, \omega) = 1 + \frac{q_{TF}^2}{q^2}\frac{\displaystyle 1 + \frac{\omega + \flatfrac{i}{\tau}}{2 \vf q} \ln(\frac{\omega - \vf q + \flatfrac{i}{\tau}}{\omega + \vf q + \flatfrac{i}{\tau}})}{\displaystyle 1 + \frac{\flatfrac{i}{\tau}}{2 \vf q} \ln(\frac{\omega - \vf q + \flatfrac{i}{\tau}}{\omega + \vf q + \flatfrac{i}{\tau}})}. \label{eq:lindhardsolyom}
+\end{equation}
+Here, $q_{TF}$ is the Thomas-Fermi wavevector $q_{TF}^2 = 3 \flatfrac{\omega_p^2}{\vf^2}$, $\omega_p$ is the plasma frequency $\sqrt{\flatfrac{4 \pi n e^2}{m}}$, $\tau$ is the collision time and $\vf$ is the Fermi velocity.
+This can be shown to reduce to the Drude dielectric function in the $q \rightarrow 0$ limit.
 
-	Nam~\cite{Nam1967} describes the electrodynamics for superconductors applicable for clean and dirty materials.\todo{Describe his derivations here, based on Green's function methods \& can generalise to strong-coupling and magnetic impurities}
-	Assuming no magnetic impurities and weak coupling, his expressions reduce to
-	\begin{equation}
-		\epsilon(q, \omega) = 1 + \frac{3 \pi}{\omega^2} \frac{n e^2}{m} \left[\int_{\Delta - \omega}^{\Delta}\dd{\omega'} \tanh(\frac{\omega + \omega'}{2 T}) I_1 + \int_{\Delta}^{\infty} \dd{\omega'} \left( \tanh(\frac{\omega + \omega'}{2 T}) I_1  - \tanh(\frac{\omega'}{2 T})I_2 \right) \right], \label{eq:eps}
-	\end{equation}
-	with
-	\begin{align}
-		I_1 &= F(q, \Re[\sqrt{(\omega + \omega')^2 - \Delta^2} - \sqrt{\omega'^2 - \Delta^2}]) (g + 1) \nonumber\\
-		&\quad + F(q, \Re[-\sqrt{(\omega + \omega')^2 - \Delta^2} - \sqrt{\omega'^2 - \Delta^2}]) (g - 1) \\
-		I_2 &= F(q, \Re[\sqrt{(\omega + \omega')^2 - \Delta^2} - \sqrt{\omega'^2 - \Delta^2}]) (g + 1) \nonumber\\
-		&\quad + F(q, \Re[\sqrt{(\omega +  \omega')^2 - \Delta^2} + \sqrt{\omega'^2 - \Delta^2}]) (g - 1) \\
-		F(q, E) &= \frac{1}{q \vf} \left[2 S(E) + (1 - S(E)^2)\ln(\frac{S(E) + 1}{S(E) - 1})\right]  \\
-		S(q, E) &= \frac{1}{q \vf} \left( E - i \left(\Im[\sqrt{(\omega + \omega')^2 - \Delta^2} + \sqrt{\omega'^2 - \Delta^2}] + \frac{2}{\tau} \right) \right) \\
-		g &= \frac{\omega' \left(\omega + \omega'\right) + \Delta^2}{\sqrt{\omega'^2 - \Delta^2}\sqrt{(\omega + \omega')^2 - \Delta^2}}.
-	\end{align}
+We use the expressions from Nam in~\cite{Nam1967} to represent the superconducting response function.
+This extends the previous models by Mattis and Bardeen~\cite{Mattis} and Abrikosov, Dzyaloshinskii and Gorkov\cite{AGD} to give expressions that allow for broader ranges of impurity values.\todo{Including the full expressions from Nam here is a bit space-prohibitive, but it may be important to show exactly what our assumptions encode to in his notation? ex: by assuming no magnetic impurities, our renormalisation factor becomes simpler.}
 
-	As seen in figure\todo{Insert 3D plot here}, the temperature dependence for the superconducting state is richer than for the normal state described in~\cite{QubitRelax}.
-	When $\omega$ and $T$ are both much smaller than $T_c$, the figure reveals the expected reduction in noise.
-	As $T \rightarrow T_c$, a smaller $\omega$ is required to facilitate Johnson noise.
-	In figure\todo{Insert chi vs T plot, for Lindhard and Nam}, the more sensitive temperature dependence of the superconductor is visible against a normal state calculation done with the Lindhard function, as in~\cite{QubitRelax}.
-	For $T \rightarrow T_c$, the superconducting state noise approaches that of the normal state, as expected.
+Here, we look at Nam's expressions in the weak coupling limit, for no magnetic impurities and an isotropic material.
+\begin{equation}
+	\epsilon(q, \omega) = 1 + \frac{3 \pi}{\omega^2} \frac{n e^2}{m} \left[\int_{\Delta - \omega}^{\Delta}\dd{\omega'} \tanh(\frac{\omega + \omega'}{2 T}) I_1 + \int_{\Delta}^{\infty} \dd{\omega'} \left( \tanh(\frac{\omega + \omega'}{2 T}) I_1  - \tanh(\frac{\omega'}{2 T})I_2 \right) \right], \label{eq:eps}
+\end{equation}
+with
+\begin{align}
+	I_1 &= F(q, \Re[\sqrt{(\omega + \omega')^2 - \Delta^2} - \sqrt{\omega'^2 - \Delta^2}]) (g + 1) \nonumber\\
+	&\quad + F(q, \Re[-\sqrt{(\omega + \omega')^2 - \Delta^2} - \sqrt{\omega'^2 - \Delta^2}]) (g - 1) \\
+	I_2 &= F(q, \Re[\sqrt{(\omega + \omega')^2 - \Delta^2} - \sqrt{\omega'^2 - \Delta^2}]) (g + 1) \nonumber\\
+	&\quad + F(q, \Re[\sqrt{(\omega +  \omega')^2 - \Delta^2} + \sqrt{\omega'^2 - \Delta^2}]) (g - 1) \\
+	F(q, E) &= \frac{1}{q \vf} \left[2 S(E) + (1 - S(E)^2)\ln(\frac{S(E) + 1}{S(E) - 1})\right]  \\
+	S(q, E) &= \frac{1}{q \vf} \left( E - i \left(\Im[\sqrt{(\omega + \omega')^2 - \Delta^2} + \sqrt{\omega'^2 - \Delta^2}] + \frac{2}{\tau} \right) \right) \\
+	g &= \frac{\omega' \left(\omega + \omega'\right) + \Delta^2}{\sqrt{\omega'^2 - \Delta^2}\sqrt{(\omega + \omega')^2 - \Delta^2}}.
+\end{align}
+The assumption of isotropy suppresses the $q$ dependence for $\Delta$, which then is just a function of temperature, and can be described using the well-known BCS expression $\Delta \approx 3.06 \sqrt{T_c(T_c - T)}$ (see for example \cite{Tinkham}).
 
 \section{Numerical Techniques \label{sec:technical}}
 
@@ -84,12 +97,7 @@
 	In order to use~\eqref{eq:zp} and~\eqref{eq:zs}, this must be corrected to prevent divergences.
 	For sufficiently large momenta, the response function should approach the normal state function\todo{add good ref of this}.
 	Moreover, $\Im \epsilon$ should go to $0$ when $q \gtrapprox 2 k_{\mathrm{F}}$, as otherwise there will be no available states within the Fermi surface for energy transfer (for more on this point, see the discussion in~\cite{FetterWalecka}).
-
 	In order to account for the first point, for the normal state we can use the Lindhard dielectric function, which has the correct nonlocal behaviour to describe the low $z$ noise\cite{QubitRelax}.
-	As described from~\cite{SolyomV3}, this is
-	\begin{equation}
-		\epsilon_{\mathrm{Lindhard}}(\vec{q}, \omega) = 1 + \frac{q_{TF}^2}{q^2}\frac{\displaystyle 1 + \frac{\omega + \flatfrac{i}{\tau}}{2 \vf q} \ln(\frac{\omega - \vf q + \flatfrac{i}{\tau}}{\omega + \vf q + \flatfrac{i}{\tau}})}{\displaystyle 1 + \frac{\flatfrac{i}{\tau}}{2 \vf q} \ln(\frac{\omega - \vf q + \flatfrac{i}{\tau}}{\omega + \vf q + \flatfrac{i}{\tau}})}. \label{eq:lindhardsolyom}
-	\end{equation}
 
 	The effect of the inaccurate large momentum values in $\epsilon$ is an overestimation of the dissipative part $\Im r_p$ of the reflection coefficient.
 	To correct for this, we can use~\eqref{eq:lindhardsolyom} and~\eqref{eq:eps} to find $r_{p\mathrm{, Lindhard}}$ and $r_{p\mathrm{, Nam}}$, then choose whichever value has a smaller imaginary part.

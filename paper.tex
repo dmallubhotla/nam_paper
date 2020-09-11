@@ -77,7 +77,7 @@ This extends the previous models by Mattis and Bardeen~\cite{Mattis} and Abrikos
 
 Here, we look at Nam's expressions in the weak coupling limit, for no magnetic impurities and an isotropic material.
 \begin{equation}
-	\epsilon(q, \omega) = 1 + \frac{3 \pi}{\omega^2} \frac{n e^2}{m} \left[\int_{\Delta - \omega}^{\Delta}\dd{\omega'} \tanh(\frac{\omega + \omega'}{2 T}) I_1 + \int_{\Delta}^{\infty} \dd{\omega'} \left( \tanh(\frac{\omega + \omega'}{2 T}) I_1  - \tanh(\frac{\omega'}{2 T})I_2 \right) \right], \label{eq:eps}
+	\epsilon_{\mathrm{Nam}}(\vec{q}, \omega) = 1 + \frac{3 \pi}{\omega^2} \frac{n e^2}{m} \left[\int_{\Delta - \omega}^{\Delta}\dd{\omega'} \tanh(\frac{\omega + \omega'}{2 T}) I_1 + \int_{\Delta}^{\infty} \dd{\omega'} \left( \tanh(\frac{\omega + \omega'}{2 T}) I_1  - \tanh(\frac{\omega'}{2 T})I_2 \right) \right], \label{eq:eps}
 \end{equation}
 with
 \begin{align}
@@ -85,7 +85,7 @@ with
 	&\quad + F(q, \Re[-\sqrt{(\omega + \omega')^2 - \Delta^2} - \sqrt{\omega'^2 - \Delta^2}]) (g - 1) \\
 	I_2 &= F(q, \Re[\sqrt{(\omega + \omega')^2 - \Delta^2} - \sqrt{\omega'^2 - \Delta^2}]) (g + 1) \nonumber\\
 	&\quad + F(q, \Re[\sqrt{(\omega +  \omega')^2 - \Delta^2} + \sqrt{\omega'^2 - \Delta^2}]) (g - 1) \\
-	F(q, E) &= \frac{1}{q \vf} \left[2 S(E) + (1 - S(E)^2)\ln(\frac{S(E) + 1}{S(E) - 1})\right]  \\
+	F(q, E) &= \frac{1}{q \vf} \left[2 S(E) + (1 - S(E)^2)\ln(\frac{S(E) + 1}{S(E) - 1})\right] \label{eq:NamF} \\
 	S(q, E) &= \frac{1}{q \vf} \left( E - i \left(\Im[\sqrt{(\omega + \omega')^2 - \Delta^2} + \sqrt{\omega'^2 - \Delta^2}] + \frac{2}{\tau} \right) \right) \\
 	g &= \frac{\omega' \left(\omega + \omega'\right) + \Delta^2}{\sqrt{\omega'^2 - \Delta^2}\sqrt{(\omega + \omega')^2 - \Delta^2}}.
 \end{align}
@@ -93,21 +93,29 @@ The assumption of isotropy suppresses the $q$ dependence for $\Delta$, which the
 
 \section{Numerical Techniques \label{sec:technical}}
 
-	Nam's expressions are no longer valid for $q \geq q_\mathrm{F}$, and as $q \rightarrow \infty$ exhibit an unphysical $\flatfrac{1}{q}$ dependence, a feature shared by similar expressions in \cite{AGD}.
-	In order to use~\eqref{eq:zp} and~\eqref{eq:zs}, this must be corrected to prevent divergences.
-	For sufficiently large momenta, the response function should approach the normal state function\todo{add good ref of this}.
-	Moreover, $\Im \epsilon$ should go to $0$ when $q \gtrapprox 2 k_{\mathrm{F}}$, as otherwise there will be no available states within the Fermi surface for energy transfer (for more on this point, see the discussion in~\cite{FetterWalecka}).
-	In order to account for the first point, for the normal state we can use the Lindhard dielectric function, which has the correct nonlocal behaviour to describe the low $z$ noise\cite{QubitRelax}.
+The noise integral \eqref{eq:chi} can be calculated numerically, with proper care taken to handle the integrand's behaviour across the entire range.
+For small momenta, where $\vf q \ll \omega$, both \eqref{eq:lindhardsolyom} and \eqref{eq:eps} can be series expanded to give explicit expressions.
+The Lindhard dielectric function, up to $\mathcal{O}(q^2)$, becomes
+\begin{gather}
+	\epsilon_{\mathrm{Lindhard}}(\vec{q}, \omega) = 1 - \frac{\omega_p^2}{\omega^2} \left(\frac{\omega}{(\omega + \frac{i}{\tau})} + (\vf q)^2  \frac{9 \omega + 5 \frac{i}{\tau}}{15 (\omega + \frac{i}{\tau})^3} \right). \label{eq:lindhardsmallkseries}
+\end{gather}
+As expected for a description of the normal state, for $q \rightarrow 0$ this reduces to the Drude expression.
 
-	The effect of the inaccurate large momentum values in $\epsilon$ is an overestimation of the dissipative part $\Im r_p$ of the reflection coefficient.
-	To correct for this, we can use~\eqref{eq:lindhardsolyom} and~\eqref{eq:eps} to find $r_{p\mathrm{, Lindhard}}$ and $r_{p\mathrm{, Nam}}$, then choose whichever value has a smaller imaginary part.
-	Effectively, this defines an $r_{p\mathrm{, effective}}$.
-	For $q$ below some cutoff $q_{uc}$ on the order of $q_{\mathrm{F}}$, this picks the Nam reflection coefficient and reflects the diminished noise in the superconducting state.\todo{Does this need to be justified with a graph of the two functions?}
+All of the momentum dependence in the Nam expression is contained within the $F(q, E)$ function in \eqref{eq:NamF}.
+Expanding this out to second order in the momentum gives
+\begin{align}
+	F = \frac43 \frac{1}{\eta} + (\vf q)^2\frac{4}{15} \frac{1}{\eta^3},
+\end{align}
+where
+\begin{equation}
+	\eta = E - i \left(\Im[\sqrt{(\omega + \omega')^2 - \Delta^2} + \sqrt{\omega'^2 - \Delta^2}] + 2 \frac{1}{\tau} \right).
+\end{equation}
+This, and other limiting forms, were stated by Nam as well~\cite{Nam1967}.
+Inserting this in $\eqref{eq:NamF}$ suffices to obtain the small $q$ values in a more numerically stable way.
 
-	The integral in~\eqref{eq:chi} picks out values around $u = \frac{c}{\omega} q \sim \frac{1}{z}$.
-	As long as $\frac{1}{z} \ll \frac{\omega}{c} q_{uc}$, the value for the noise will reflect the effects of the superconducting expressions, without picking up the inaccuracies of the transition region.
-	This corresponds with physical distances on the order of $\SI{1}{\nm}$ for metals with $\vf \sim \SI{1e6}{\m\per\s}$.
-	For $z$ smaller than this, more sophisticated dielectric functions would be necessary to take into account inter-atomic spacing.
+By comparison to the $q \rightarrow 0$ case, the large momentum dependence requires more careful thought.
+For sufficiently large $q$, the logarithm in $\eqref{eq:NamF}$ goes to $i \pi$, and $F \rightarrow \frac{i \pi}{q \vf}$.
+This behaviour leads to an unphysical divergence in \eqref{eq:chi}, as 
 
 \section{Experiments \label{sec:experiments}}
 \begin{itemize}

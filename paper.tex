@@ -113,9 +113,48 @@ where
 This, and other limiting forms, were stated by Nam as well~\cite{Nam1967}.
 Inserting this in $\eqref{eq:NamF}$ suffices to obtain the small $q$ values in a more numerically stable way.
 
-By comparison to the $q \rightarrow 0$ case, the large momentum dependence requires more careful thought.
+By comparison to the $q \rightarrow 0$ case, the large momentum dependence is more involved to correctly handle.
 For sufficiently large $q$, the logarithm in $\eqref{eq:NamF}$ goes to $i \pi$, and $F \rightarrow \frac{i \pi}{q \vf}$.
-This behaviour leads to an unphysical divergence in \eqref{eq:chi}, as 
+This behaviour leads to an unphysical divergence in \eqref{eq:chi} as $z \rightarrow 0$.
+Tinkham~\cite{Tinkham} and Abrikosov, Dzyaloshinskii and Gorkov~\cite{AGD} both describe expressions with this same $\frac{1}{q}$ dependence.
+The root cause of inaccuracies above $q \gg 2 q_{\mathrm{F}}$ is that the Green's function method used to derive the superconducting response function makes the assumption that $q$ is sufficiently close to the Fermi surface.
+
+However, it is insufficient to only account for the $\frac{1}{q}$ dependence, as a stronger condition is necessary to ensure convergence for arbitrarily small $z$.
+In the large $q$ regime, \eqref{eq:chi} can be reduced to
+\begin{align}
+	\chi_\perp^E(z, \omega) &= \Re \int_0^{+\infty} \dd{u} \frac{u^3}{i u} e^{-2 z u} r_p(u),
+\end{align}
+which means that for $z = 0$
+\begin{align}
+	\chi_\perp^E(z, \omega) &= \int_0^{+\infty} \dd{u} u^2 \Im r_p(u).
+\end{align}
+For a dielectric function that asymptotically scales as $\frac{A + i B}{q}$, for real $A$ and $B$, it can be shown that
+\begin{equation}
+	\Im r_p(u) \sim \frac{B}{u},
+\end{equation}
+which clearly leads to a divergent $\chi_\perp^E$.
+
+This is the same divergence discussed in Langsjoen et al.~\cite{QubitRelax}, where for the normal state this problem does not arise if the Lindhard dielectric function is used.
+Ultimately, this is because for $q > 2 q_{\mathrm{F}}$ the imaginary part of the Lindhard function goes to zero.
+Physically, this happens because there are no points on the assumed spherical Fermi surface further than $2 q_{\mathrm{F}}$ apart, which means there are no available quasiparticle-hole excitations available for energy dissipation (cf discussion in \cite{AGD}, \cite{FetterWalecka} or \cite{SolyomV3}).
+This is a general argument, and it should be expected that a superconducting dielectric function should also have zero imaginary part above some momentum on the order of the Fermi momentum.
+
+This can be handled in two coarse approximations.
+The key is that the integral in \eqref{eq:chi} picks out values around $u = \frac{c}{\omega} \sim \frac{1}{z}$ over most of its range, because of the $u^2 e^{-2 z u}$ factor for $u \gg 1$.
+If we cut off the imaginary part of the Nam response function above some momentum $q_{\mathrm{cutoff}}$, then if $\frac{1}{z} \ll \frac{\omega}{c} q_{\mathrm{cutoff}}$, the imprecision of such a low order approximation will not greatly affect the final noise integral.
+For a metal with $\vf \sim \SI{e6}{\m\per\s}$, this corresponds to $z \sim \SI{1}{\nm}$.
+At this length scale, inter-atomic spacing would itself be enough to invalidate these results already.
+
+As a further correction, the Nam expression's $\frac{1}{q}$ dependence causes an overestimation in $\chi_\perp^E$ if $\frac{1}{z}$ is above the momentum at which superconductivity should play a role, on the order of the Debye momentum.
+Above this point, the Lindhard result suffices as a description of the metal's response.
+This can be incorporated into a numerical model by interpolating the results;
+one crude way of accomplishing this is to simply define a new effective reflection coefficient
+\begin{equation}
+	r_{p, \mathrm{effective}}(u) = \min_{\Im}\left[r_{p, \mathrm{Lindhard}}\left(u\right), r_{p, \mathrm{Nam}}\left(u\right)\right],
+\end{equation}
+where the right hand side should be interpreted to choose the argument with the smaller imaginary part.
+This effectively forces the reflection coefficient to choose the Lindhard result above some crossover $q_{\mathrm{crossover}}$.
+Once again, unless $\frac{1}{z} \sim q_{\mathrm{crossover}}$, the inaccuracies this causes should be exponentially damped in $\chi_\perp^E$.
 
 \section{Experiments \label{sec:experiments}}
 \begin{itemize}

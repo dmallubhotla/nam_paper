@@ -34,25 +34,61 @@
 \end{itemize}
 \section{Methods \label{sec:methods}}
 
-The electromagnetic field fluctuations that contribute to qubit relaxation haven described in~\cite{QubitRelax} and~\cite{Henkel1999}.
-Both use Fermi's golden rule and the fluctuation-dissipation theorem to relate the relaxation rate to the spectral density of the field fluctations:
-\begin{equation}
-	\frac{1}{T_1} = \frac{d_{(E,B)}^2}{\epsilon_0} \frac{\omega^3}{c^3} \chi_{i}^{(E,B)}(r, \omega) \coth\frac{\omega}{2 T}.
-\end{equation}
-Here, $\vec{d}_{(E,B)}$ is the dipole moment of a point qubit at position $\vec{r}$, with $i$ the direction of the qubit's dipole moment, with $(E,B)$ represents an electric or magnetic qubit (and correspondingly, an electric or magnetic spectral field density).
-The frequency $\omega$ corresponds to the separation between energy levels of the qubit, and here and elsewhere we take $\hbar = k_{\mathrm{B}} = 1$.
+Physically, we are interested in the relaxation time of a qubit near the surface of the metal.
+Sufficiently close to the metal, such that the separation between qubit and metal is much smaller than the shortest dimension of the metallic body, we can approximate the metal as a half space.
+This defines a natural coordinate system, and we can allow the metal to take up all points with $z$-coordinate less than zero, extending to infinity in the $x$ and $y$ directions.
 
-For a half space, these spectral densities can be written in terms of the surface's reflection coefficients, as derived by\cite{Henkel1999}.
+For a charge qubit with level separation $\omega$ and dipole moment $\vec{d}$, the relaxation rate $\frac{1}{T_1}$ depends on the qubit's distance from the surface $z$, as well as its orientation $i$.
+The vacuum wavelength $\lambda = \frac{c}{\omega}$ is a natural unit for this distance $z$, so we wil measure $z$ in units of $\lambda$.
+The electromagnetic field fluctuations that contribute to qubit relaxation have been described in~\cite{QubitRelax} and~\cite{Henkel1999}.
+Both use Fermi's golden rule and the fluctuation-dissipation theorem to relate the relaxation rate to the spectral density of the field fluctations, and obtain the following expression:
+\begin{equation}
+	\frac{1}{T_1} = \frac{d^2}{\epsilon_0} \frac{\omega^3}{c^3} \chi_{i}^{(E)}(z, \omega) \coth\frac{\omega}{2 T}.
+\end{equation}
+\todo{All the Nam stuff is in Gaussian units, so should pick one unit system and stick with it.
+Doesn't affect results so far, as \chi is unitless and only depends on quantities that are the same in SI / Gaussian.
+Still bad though.}
+Here and elsewhere we take $\hbar = k_{\mathrm{B}} = 1$.
+
+Similarly, for spin qubits with dipole moment $\vec{\mu}$, both~\cite{QubitRelax} and~\cite{Henkel1999} have a similar expression with a different spectral density expression:
+\begin{equation}
+	\frac{1}{T_1} = \frac{\mu^2}{\epsilon_0} \frac{\omega^3}{c^3} \chi_{i}^{(B)}(z, \omega) \coth\frac{\omega}{2 T}.
+\end{equation}
+
+The spectral densities are in general functions of the geometry and electrodynamic response of the metal object.
+A standard limiting case for the response is that of local, linear electrodynamics, where the relationship between the electric displacement $\vec{D}$ and electric field $\vec{E}$ is a proportionality:
+\begin{equation}
+	\vec{D}(\vec{r}) = \epsilon \vec{E}(\vec{r})
+\end{equation}
+For a metal with conductivity $\sigma$, this dielectric function will typically have a large imaginary value as determined by the Drude expression in Gaussian units:
+\begin{equation}
+	\epsilon = 1 + i\frac{4 \pi \sigma}{\omega}
+\end{equation}
+
+For a half space, these spectral densities can be written in terms of the surface's reflection coefficients, as derived by\cite{Henkel1999} for local electrodynamics.
 Considering for now a qubit pointing in the direction perpendicular to the half-space, we can write
 \begin{align}
-	\chi_\perp^E(z, \omega) &= \Re \int_0^{+\infty} \dd{u} \frac{u^3}{v} e^{2 i z v} r_p(u), \label{eq:chi}
+	\chi_\perp^E(z, \omega) &= \Re \int_0^{+\infty} \dd{u} \frac{u^3}{v} e^{2 i z v} r_p(u). \label{eq:chi}
 \end{align}
-with $z$ the distance to the qubit from the half-space measured in terms of the vacuum wavelength $\lambda = \flatfrac{c}{\omega}$.
 The integration variable $u$ effectively represents a momentum in units of $\flatfrac{1}{\lambda}$, with $v = \sqrt{1 - u^2}$.
 If $v \geq 1$, we take the positive square root $v = i \sqrt{u^2 - 1}$.
 The magnetic spectral density is the same, except with an additional factor of $\flatfrac{1}{c^2}$ and with $r_s$ instead of $r_p$.
+In the local limit, for dielectric constant $\epsilon$, the reflection coefficients will be the Fresnel $r_p$ and $r_s$:
+\begin{align}
+	r_p &= \frac{\epsilon v - \sqrt{\epsilon - u^2}}{\epsilon v + \sqrt{\epsilon - u^2}} \\
+	r_s &= \frac{v - \sqrt{\epsilon - u^2}}{ v + \sqrt{\epsilon - u^2}}
+\end{align}
 
-For the description of the behaviour of~\eqref{eq:chi} to remain accurate for small $z$, we use the reflection coefficients in Ford and Weber~\cite{Ford1984}:
+However, as discussed in~\cite{QubitRelax} and~\cite{Henkel2006}, this expression no longer remains accurate for arbitrarily small distances, diverging as $\frac{1}{z^3}$ as $z \rightarrow 0$.
+The divergence here stems from the unphysicality of local electrodynamics at very small scales;
+within the electromagnetic coherence length of the metal the full response function defined by
+\begin{equation}
+	\vec{D}(\vec{r, t}) = \int \dd{r'} \dd{t'} \epsilon(r, r', t, t') \vec{E}(\vec{r', t'})
+\end{equation}
+becomes necessary.
+
+We can keep~\eqref{eq:chi} accurate for sufficiently small $z$ if we make appropriate changes to our reflection coefficients\cite{QubitRelax,Henkel2006}, so 
+we use the reflection coefficients in Ford and Weber~\cite{Ford1984}:
 \begin{align}
 	r_p(u) &= \frac{\pi v - \zeta_p(u)}{\pi v + \zeta_p(u)} \\
 	r_s(u) &= \frac{\zeta_s(u) - \frac{\pi}{v}}{\zeta_s(u) + \frac{\pi}{v}} \\

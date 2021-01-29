@@ -79,13 +79,15 @@ In the local limit, for dielectric constant $\epsilon$, the reflection coefficie
 	r_s &= \frac{v - \sqrt{\epsilon - u^2}}{ v + \sqrt{\epsilon - u^2}}
 \end{align}
 
-However, as discussed in~\cite{QubitRelax} and~\cite{Henkel2006}, this expression no longer remains accurate for arbitrarily small distances, diverging as $\frac{1}{z^3}$ as $z \rightarrow 0$.
+However, as discussed in~\cite{QubitRelax} and~\cite{Henkel2006}, this expression no longer remains accurate for arbitrarily small distances, with \eqref{eq:chi} diverging as $\frac{1}{z^3}$ as $z \rightarrow 0$.
 The divergence here stems from the unphysicality of local electrodynamics at very small scales;
-within the electromagnetic coherence length of the metal the full response function defined by
+for $z$ smaller than the electromagnetic coherence length of the metal the full response function defined by
 \begin{equation}
 	\vec{D}(\vec{r, t}) = \int \dd{r'} \dd{t'} \epsilon(r, r', t, t') \vec{E}(\vec{r', t'})
 \end{equation}
 becomes necessary.
+The experiment described by Kolkowitz et al.\cite{Kolkowitz2015} gives an example of a physical situation where the local description is insufficient, with a qubit probe at a distance from a silver film less than the film's mean free path.
+Given that the coherence lengths of typical BCS superconductors can be larger than the distances used in that experiment, we should expect that the purely local description will not work for the superconducting case.
 
 We can keep~\eqref{eq:chi} accurate for sufficiently small $z$ if we make appropriate changes to our reflection coefficients\cite{QubitRelax,Henkel2006}, so we use the reflection coefficients in Ford and Weber~\cite{Ford1984}:
 \begin{align}
@@ -95,8 +97,8 @@ We can keep~\eqref{eq:chi} accurate for sufficiently small $z$ if we make approp
 	\zeta_s(u) &= 2i \int_0^\infty \dd{y} \frac{1}{\epsilon(\frac{\omega}{c}\kappa, \omega) - \kappa^2} \label{eq:zs} \\
 	\kappa^2 &= u^2 + y^2
 \end{align}
+The quantities $\zeta_p$ and $\zeta_s$ are proportional to the surface impedances of the metal, derived for this case by Ford and Weber\cite{Ford1984}, and with more thorough discussion in~\cite{LandauLifshitzElectrodynamics}.
 The treatment in~\cite{QubitRelax} compares the difference between these expressions and the simpler Fresnel reflection coefficients.
-In effect, using the Fresnel reflection coefficients for a metal for some constant conductivity corresponds to a local limit $u \rightarrow 0$.
 
 The dielectric function $\epsilon(q, \omega)$, then, contains the information needed to describe the electromagnetic properties of the surface near the qubit.
 For the normal state, the dielectric function derived by Lindhard~\cite{Lindhard} used in~\cite{QubitRelax} describes the non-local electromagnetic response of a metal.
@@ -106,6 +108,12 @@ Using the form described by Solyom\cite{SolyomV3},
 \end{equation}
 Here, $q_{TF}$ is the Thomas-Fermi wavevector $q_{TF}^2 = 3 \flatfrac{\omega_p^2}{\vf^2}$, $\omega_p$ is the plasma frequency $\sqrt{\flatfrac{4 \pi n e^2}{m}}$, $\tau$ is the collision time and $\vf$ is the Fermi velocity.
 This can be shown to reduce to the Drude dielectric function in the $q \rightarrow 0$ limit.
+
+The Lindhard dielectric function reflects the important property of having an imaginary part that vanishes for $q$ such that $\abs{\varepsilon_q - \omega} >  q\vf$.
+This is a very generic feature of these types of response functions, and occurs because there are no points on the assumed spherical Fermi surface further than $2 q_{\mathrm{F}}$ apart.
+Thus, there are no available quasiparticle-hole excitations available for energy dissipation (cf discussion in \cite{AGD}, \cite{FetterWalecka} or \cite{SolyomV3}).
+This is a general argument, and it should be expected that a superconducting dielectric function should also have zero imaginary part above some momentum on the order of the Fermi momentum.
+Because the Lindhard dielectric function's imaginary part vanishes above a cutoff $q_c\left(\omega\right)$ and has real part that goes as $\frac{1}{q^2}$, all of the integrals in $\eqref{eq:chi}, \eqref{eq:zp} and \eqref{eq:zs}$ converge.
 
 We use the expressions from Nam in~\cite{Nam1967} to represent the superconducting response function.
 This extends the previous models by Mattis and Bardeen~\cite{Mattis} and Abrikosov, Dzyaloshinskii and Gorkov\cite{AGD} to give expressions that allow for broader ranges of impurity values.\todo{Including the full expressions from Nam here is a bit space-prohibitive, but it may be important to show exactly what our assumptions encode to in his notation? ex: by assuming no magnetic impurities, our renormalisation factor becomes simpler.}
@@ -171,8 +179,6 @@ which clearly leads to a divergent $\chi_\perp^E$.
 
 This is the same divergence discussed in Langsjoen et al.~\cite{QubitRelax}, where for the normal state this problem does not arise if the Lindhard dielectric function is used.
 Ultimately, this is because for $q > 2 q_{\mathrm{F}}$ the imaginary part of the Lindhard function goes to zero.
-Physically, this happens because there are no points on the assumed spherical Fermi surface further than $2 q_{\mathrm{F}}$ apart, which means there are no available quasiparticle-hole excitations available for energy dissipation (cf discussion in \cite{AGD}, \cite{FetterWalecka} or \cite{SolyomV3}).
-This is a general argument, and it should be expected that a superconducting dielectric function should also have zero imaginary part above some momentum on the order of the Fermi momentum.
 
 This can be handled in two coarse approximations.
 The key is that the integral in \eqref{eq:chi} picks out values around $u = \frac{c}{\omega} \sim \frac{1}{z}$ over most of its range, because of the $u^2 e^{-2 z u}$ factor for $u \gg 1$.

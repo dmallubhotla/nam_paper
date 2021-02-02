@@ -41,14 +41,12 @@ This defines a natural coordinate system, and we can allow the metal to take up 
 For a charge qubit with level separation $\omega$ and dipole moment $\vec{d}$, the relaxation rate $\frac{1}{T_1}$ depends on the qubit's distance from the surface $z$, as well as its orientation $i$.
 The vacuum wavelength $\lambda = \frac{c}{\omega}$ is a natural unit for this distance $z$, so we wil measure $z$ in units of $\lambda$.
 The electromagnetic field fluctuations that contribute to qubit relaxation have been described in~\cite{QubitRelax} and~\cite{Henkel1999}.
-Both use Fermi's golden rule and the fluctuation-dissipation theorem to relate the relaxation rate to the spectral density of the field fluctations, and obtain the following expression:
+Both use Fermi's golden rule and the fluctuation-dissipation theorem to relate the relaxation rate to the spectral density of the field fluctuations, and obtain the following expression:
 \begin{equation}
 	\frac{1}{T_1} = \frac{d^2}{\epsilon_0} \frac{\omega^3}{c^3} \chi_{i}^{(E)}(z, \omega) \coth\frac{\omega}{2 T}.
 \end{equation}
-\todo{All the Nam stuff is in Gaussian units, so should pick one unit system and stick with it.
-Doesn't affect results so far, as \chi is unitless and only depends on quantities that are the same in SI / Gaussian.
-Still bad though.}
-Here and elsewhere we take $\hbar = k_{\mathrm{B}} = 1$.
+%\todo{All the Nam stuff is in Gaussian units, so should pick one unit system and stick with it. Doesn't %affect results so far, as $\chi$ is unitless and only depends on quantities that are the same in SI / %Gaussian. Still bad though.}
+%Here and elsewhere we take $\hbar = k_{\mathrm{B}} = 1$.
 
 Similarly, for spin qubits with dipole moment $\vec{\mu}$, both~\cite{QubitRelax} and~\cite{Henkel1999} have a similar expression with a different spectral density expression:
 \begin{equation}

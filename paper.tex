@@ -216,6 +216,24 @@ where the right hand side should be interpreted to choose the argument with the 
 This effectively forces the reflection coefficient to choose the Lindhard result above some crossover $q_{\mathrm{crossover}}$.
 Once again, unless $\frac{1}{z} \sim q_{\mathrm{crossover}}$, the inaccuracies this causes should be exponentially damped in $\chi_\perp^E$.
 
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=12cm]{HighTempNam1}
+	\caption{$T_1(z)$ at various temperatures, with $T_1$ in nanoseconds and $z$ in micrometers for parameters described in the text.} \label{fig:HighTempNam1}
+\end{figure}
+\Cref{fig:HighTempNam1} shows the result of these approximations, plotting the relaxation time $T_1$ at increasing distances away from the qubit.
+In that figure, $\omega = \SI{1e9}{\per\second}$, $\omega_p = \SI{3.5e15}{\per\second}$, $\tau = \SI{1e-14}{\second}$, $\vf = \SI{1e6}{\m\per\s}$, $T_c = \SI{1e11}{\per\s}$, $d = \SI{8.4e-30}{\coulomb\m}$, and the temperatures are given in the legend in units of $T_c$.
+Of note is how the noise calculated for the superconducting case goes to the normal state as $T \rightarrow T_c$, as well as how little the normal state depends on the temperature.
+Also of note is the very large increase in the relaxation time for $T = .9 T_c$.
+This reflects the situation where $\Delta$ is high enough that fluctuations with frequency $\omega$ can no longer excite states in the superconductor.
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=12cm]{namNoiseCliff}
+	\caption{$\chi = \frac{1}{T_1(z)}$ for fixed $z$, but varying $\omega$ and $\Delta$} \label{fig:Cliff}
+\end{figure}
+This is plotted in \cref{fig:Cliff}, which shows the cliff-edge along which $\omega$ is sufficiently smaller than $\Delta$.
+In this regime, Johnson noise no longer becomes an issue for these qubits.
+
 \section{Experiments \label{sec:experiments}}
 \begin{itemize}
 	\item Show that expression is of right order of magnitude to describe~\cite{Tenberg2019}.

@@ -13,6 +13,8 @@
 \usepackage{todonotes}
 \usepackage{siunitx}
 
+\usepackage{cleveref}
+
 \title{EWJN from a BCS Superconductor}
 
 \addbibresource{./bibliography.bib}
@@ -20,6 +22,7 @@
 \graphicspath{{./figures/}}
 
 \newcommand{\vf}{v_{\mathrm{F}}}
+\newcommand{\qf}{q_{\mathrm{F}}}
 
 \begin{document}
 
@@ -132,6 +135,23 @@ with
 	g &= \frac{\omega' \left(\omega + \omega'\right) + \Delta^2}{\sqrt{\omega'^2 - \Delta^2}\sqrt{(\omega + \omega')^2 - \Delta^2}}.
 \end{align}
 The assumption of isotropy suppresses the $q$ dependence for $\Delta$, which then is just a function of temperature, and can be described using the well-known BCS expression $\Delta \approx 3.06 \sqrt{T_c(T_c - T)}$ (see for example \cite{Tinkham}).
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=12cm]{Cond1Re}
+	\caption{$\Re[\epsilon(q)]$ for $\omega = 1$, $\tau = 0.5$, $\omega_p = 10$, $\vf = 1$, $T = .9999 T_c$, $T_c = 3$} \label{fig:cond1Re}
+\end{figure}
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=12cm]{Cond1Im}
+	\caption{$\Im[\epsilon(q)]$ for $\omega = 1$, $\tau = 0.5$, $\omega_p = 10$, $\vf = 1$, $T = .9999 T_c$, $T_c = 3$} \label{fig:cond1Im}
+\end{figure}
+
+The Lindhard and Nam dielectric constants are compared in \cref{fig:cond1Re} and \cref{fig:cond1Im}, plotting the real and imaginary part for small representative values.
+In this regime, $\omega_p > T_c > \omega$, as is typical for the frequency regime of interest, while $\tau$ is chosen to be smaller than $\omega$.
+For a typical metal in this description, the Fermi wavevector $\qf$ is around the same order as $\sqrt{3}\frac{\omega_p}{\vf}$ (see discussion on this point in Solyom\cite{SolyomV3}).
+We can see in \cref{fig:cond1Im} that the Lindhard dielectric function goes to zero for $q < \qf \approx 10 \sqrt{3}$.
 
 \section{Numerical Techniques \label{sec:technical}}
 

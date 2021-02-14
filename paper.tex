@@ -37,6 +37,7 @@
 \end{itemize}
 \section{Methods \label{sec:methods}}
 
+\subsection{Qubit Relaxation Time Theory} \label{subsec:relaxtime}
 Physically, we are interested in the relaxation time of a qubit near the surface of the metal.
 Sufficiently close to the metal, such that the separation between qubit and metal is much smaller than the shortest dimension of the metallic body, we can approximate the metal as a half space.
 This defines a natural coordinate system, and we can allow the metal to take up all points with $z$-coordinate less than zero, extending to infinity in the $x$ and $y$ directions.
@@ -56,6 +57,7 @@ Similarly, for spin qubits with dipole moment $\vec{\mu}$, both~\cite{QubitRelax
 	\frac{1}{T_1} = \frac{\mu^2}{\epsilon_0} \frac{\omega^3}{c^3} \chi_{i}^{(B)}(z, \omega) \coth\frac{\omega}{2 T}.
 \end{equation}
 
+\subsubsection{Spectral Field Densities} \label{subsec:spectraldensities}
 The spectral densities are in general functions of the geometry and electrodynamic response of the metal object.
 A standard limiting case for the response is that of local, linear electrodynamics, where the relationship between the electric displacement $\vec{D}$ and electric field $\vec{E}$ is a proportionality:
 \begin{equation}
@@ -80,6 +82,7 @@ In the local limit, for dielectric constant $\epsilon$, the reflection coefficie
 	r_s &= \frac{v - \sqrt{\epsilon - u^2}}{ v + \sqrt{\epsilon - u^2}}
 \end{align}
 
+\subsubsection{Nonlocal Electrodynamics} \label{subsubsec:nonlocalelectrodynamics}
 However, as discussed in~\cite{QubitRelax} and~\cite{Henkel2006}, this expression no longer remains accurate for arbitrarily small distances, with \eqref{eq:chi} diverging as $\frac{1}{z^3}$ as $z \rightarrow 0$.
 The divergence here stems from the unphysicality of local electrodynamics at very small scales;
 for $z$ smaller than the electromagnetic coherence length of the metal the full response function defined by
@@ -90,7 +93,7 @@ becomes necessary.
 The experiment described by Kolkowitz et al.\cite{Kolkowitz2015} gives an example of a physical situation where the local description is insufficient, with a qubit probe at a distance from a silver film less than the film's mean free path.
 Given that the coherence lengths of typical BCS superconductors can be larger than the distances used in that experiment, we should expect that the purely local description will not work for the superconducting case.
 
-We can keep~\eqref{eq:chi} accurate for sufficiently small $z$ if we make appropriate changes to our reflection coefficients\cite{QubitRelax,Henkel2006}, so we use the reflection coefficients in Ford and Weber~\cite{Ford1984}:
+To keep~\eqref{eq:chi} accurate for sufficiently small $z$, appropriate changes to the reflection coefficients can be made\cite{QubitRelax,Henkel2006} through the reflection coefficients in Ford and Weber~\cite{Ford1984}:
 \begin{align}
 	r_p(u) &= \frac{\pi v - \zeta_p(u)}{\pi v + \zeta_p(u)} \\
 	r_s(u) &= \frac{\zeta_s(u) - \frac{\pi}{v}}{\zeta_s(u) + \frac{\pi}{v}} \\
@@ -101,6 +104,7 @@ We can keep~\eqref{eq:chi} accurate for sufficiently small $z$ if we make approp
 The quantities $\zeta_p$ and $\zeta_s$ are proportional to the surface impedances of the metal, derived for this case by Ford and Weber\cite{Ford1984}, and with more thorough discussion in~\cite{LandauLifshitzElectrodynamics}.
 The treatment in~\cite{QubitRelax} compares the difference between these expressions and the simpler Fresnel reflection coefficients.
 
+\subsubsection{Normal state dielectric function} \label{subsubsec:lindharddielectric}
 The dielectric function $\epsilon(q, \omega)$, then, contains the information needed to describe the electromagnetic properties of the surface near the qubit.
 For the normal state, the dielectric function derived by Lindhard~\cite{Lindhard} used in~\cite{QubitRelax} describes the non-local electromagnetic response of a metal.
 Using the form described by Solyom\cite{SolyomV3},
@@ -117,6 +121,7 @@ Thus, there are no available quasiparticle-hole excitations available for energy
 This is a general argument, and it should be expected that a superconducting dielectric function should also have zero imaginary part above some momentum on the order of the Fermi momentum.
 Because the Lindhard dielectric function's imaginary part vanishes above a cutoff $q_c\left(\omega\right)$ and has real part that goes as $\Re \epsilon_{\mathrm{Lindhard}} - 1 \sim \frac{1}{q^2}$, all of the integrals in $\eqref{eq:chi}, \eqref{eq:zp} and \eqref{eq:zs}$ converge.
 
+\subsubsection{Superconducting dielectric function} \label{subsubsec:namdielectric}
 We use the expressions from Nam in~\cite{Nam1967} to represent the superconducting response function.
 This extends the previous models by Mattis and Bardeen~\cite{Mattis} and Abrikosov, Dzyaloshinskii and Gorkov\cite{AGD} to give expressions that allow for broader ranges of impurity values.\todo{Including the full expressions from Nam here is a bit space-prohibitive, but it may be important to show exactly what our assumptions encode to in his notation? ex: by assuming no magnetic impurities, our renormalisation factor becomes simpler.}
 
@@ -153,7 +158,7 @@ In this regime, $\omega_p > T_c > \omega$, as is typical for the frequency regim
 For a typical metal in this description, the Fermi wavevector $\qf$ is around the same order as $\sqrt{3}\frac{\omega_p}{\vf}$ (see discussion on this point in Solyom\cite{SolyomV3}).
 We can see in \cref{fig:cond1Im} that the Lindhard dielectric function goes to zero for $q < \qf \approx 10 \sqrt{3}$.
 
-\section{Numerical Techniques \label{sec:technical}}
+\subsection{Numerical Techniques \label{subsec:technical}}
 
 The noise integral \eqref{eq:chi} can be calculated numerically, with proper care taken to handle the integrand's behaviour across the entire range.
 For small momenta, where $\vf q \ll \omega$, both \eqref{eq:lindhardsolyom} and \eqref{eq:eps} can be series expanded to give explicit expressions.

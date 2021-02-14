@@ -160,15 +160,17 @@ We can see in \cref{fig:cond1Im} that the Lindhard dielectric function goes to z
 
 \subsection{Numerical Techniques \label{subsec:technical}}
 
+\subsubsection{Small momentum limit} \label{subsubsec:smallq}
 The noise integral \eqref{eq:chi} can be calculated numerically, with proper care taken to handle the integrand's behaviour across the entire range.
 For small momenta, where $\vf q \ll \omega$, both \eqref{eq:lindhardsolyom} and \eqref{eq:eps} can be series expanded to give explicit expressions.
-The Lindhard dielectric function, up to $\mathcal{O}(q^2)$, becomes
+Additionally, this small momentum limit is important in general as it tends towards the purely local limit.
+The Lindhard dielectric function, up to order $q^2$, becomes
 \begin{gather}
 	\epsilon_{\mathrm{Lindhard}}(\vec{q}, \omega) = 1 - \frac{\omega_p^2}{\omega^2} \left(\frac{\omega}{(\omega + \frac{i}{\tau})} + (\vf q)^2  \frac{9 \omega + 5 \frac{i}{\tau}}{15 (\omega + \frac{i}{\tau})^3} \right). \label{eq:lindhardsmallkseries}
 \end{gather}
 As expected for a description of the normal state, for $q \rightarrow 0$ this reduces to the Drude expression.
 
-All of the momentum dependence in the Nam expression is contained within the $F(q, E)$ function in \eqref{eq:NamF}.
+For the superconducting case, all of the momentum dependence in the Nam expression is contained within the $F(q, E)$ function in \eqref{eq:NamF}.
 Expanding this out to second order in the momentum gives
 \begin{align}
 	F = \frac43 \frac{1}{\eta} + (\vf q)^2\frac{4}{15} \frac{1}{\eta^3},
@@ -180,29 +182,36 @@ where
 This, and other limiting forms, were stated by Nam as well~\cite{Nam1967}.
 Inserting this in $\eqref{eq:NamF}$ suffices to obtain the small $q$ values in a more numerically stable way.
 
-By comparison to the $q \rightarrow 0$ case, the large momentum dependence is more involved to correctly handle.
+\subsubsection{Large momentum limit} \label{subsubsec:bigq}
+By comparison, the large momentum dependence is more involved to correctly handle.
+If we look at the portion of the integral in \eqref{eq:chi} for $u > u_l \gg 1$,
+\begin{align}
+	\chi_{\perp\ \mathrm{upper}}^E(z, \omega) &= \Re \int_{u_l}^{+\infty} \dd{u} \frac{u^3}{v} e^{2 i z v} r_p(u) \\
+	\chi_{\perp\ \mathrm{upper}}^E(z, \omega) &= \Re \int_{u_l}^{+\infty} \dd{u} \frac{u^3}{i u} e^{-2 z u} r_p(u)
+\end{align}
+which means that for $z = 0$
+\begin{align}
+	\chi_\perp^E(z, \omega) &= \int^{+\infty} \dd{u} u^2 \Im r_p(u).
+\end{align}
+In order for this to converge, $\Im r_p(u)$ must decrease faster than $\frac{1}{u^3}$
+
+This divergence is discussed for the normal state in Langsjoen et al.~\cite{QubitRelax}, where it only occurs in local electrodynamics.
+This is related to the point earlier that the imaginary part of $\epsilon$ should go to zero for $\abs{\varepsilon_q - \omega} > q \vf$, as such a condition is sufficient to ensure that $\Im r_p(u)$ decays quickly enough.
+
+\subsubsection{Superconducting large momentum limit} \label{subsubsec:scbigq}
+The superconducting case in the large momentum limit is not automatically corrected by using nonlocal expressions, however.
 For sufficiently large $q$, the logarithm in $\eqref{eq:NamF}$ goes to $i \pi$, and $F \rightarrow \frac{i \pi}{q \vf}$.
 This behaviour leads to an unphysical divergence in \eqref{eq:chi} as $z \rightarrow 0$.
 Tinkham~\cite{Tinkham} and Abrikosov, Dzyaloshinskii and Gorkov~\cite{AGD} both describe expressions with this same $\frac{1}{q}$ dependence.
 The root cause of inaccuracies above $q \gg 2 q_{\mathrm{F}}$ is that the Green's function method used to derive the superconducting response function makes the assumption that $q$ is sufficiently close to the Fermi surface.
 
 However, it is insufficient to only account for the $\frac{1}{q}$ dependence, as a stronger condition is necessary to ensure convergence for arbitrarily small $z$.
-In the large $q$ regime, \eqref{eq:chi} can be reduced to
-\begin{align}
-	\chi_\perp^E(z, \omega) &= \Re \int_0^{+\infty} \dd{u} \frac{u^3}{i u} e^{-2 z u} r_p(u),
-\end{align}
-which means that for $z = 0$
-\begin{align}
-	\chi_\perp^E(z, \omega) &= \int_0^{+\infty} \dd{u} u^2 \Im r_p(u).
-\end{align}
+
 For a dielectric function that asymptotically scales as $\frac{A + i B}{q}$, for real $A$ and $B$, it can be shown that
 \begin{equation}
 	\Im r_p(u) \sim \frac{B}{u},
 \end{equation}
 which clearly leads to a divergent $\chi_\perp^E$.
-
-This is the same divergence discussed in Langsjoen et al.~\cite{QubitRelax}, where for the normal state this problem does not arise if the Lindhard dielectric function is used.
-Ultimately, this is because for $q > 2 q_{\mathrm{F}}$ the imaginary part of the Lindhard function goes to zero.
 
 This can be handled in two coarse approximations.
 The key is that the integral in \eqref{eq:chi} picks out values around $u = \frac{c}{\omega} \sim \frac{1}{z}$ over most of its range, because of the $u^2 e^{-2 z u}$ factor for $u \gg 1$.
